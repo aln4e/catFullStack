@@ -19,16 +19,26 @@ class App extends Component {
                     <form>
                     <div className='row'>
                       <div className='col-xs-12'>
+
                         <div>
                           <label>Color</label>
                           <br />
-                          <input type='text' />
+                          <input
+                          type='text'
+                          name='color'
+                          value={this.state.}
+                          />
                         </div>
+
                         <div>
                           <label>Breed</label>
                           <br />
-                          <input type='text' />
+                          <input
+                          type='text'
+                          name='breed'
+                          />
                         </div>
+
                         <div>
                           <label>Gender</label>
                           <br />
@@ -37,8 +47,9 @@ class App extends Component {
                             <option>Female</option>
                           </select>
                         </div>
+
                         <div>
-                          <label >Habitat</label>
+                          <label>Habitat</label>
                           <br />
                           <select>
                             <option>Inside</option>
@@ -46,20 +57,33 @@ class App extends Component {
                             <option>Wildcat</option>
                           </select>
                         </div>
+
                         <div>
                           <label>Personality</label>
                           <br />
-                          <input type='text' />
+                          <input
+                          type='text'
+                          name='personality'
+                          />
                         </div>
+
                         <div>
                           <label>Age</label>
                           <br />
-                          <input type='number' />
+                          <input
+                          type='number'
+                          name='age'
+                          />
                         </div>
+
                         <div>
                           <br />
-                          <input type='submit' value='Submit' className = 'btn btn-primary' />
+                          <input
+                          type='submit'
+                          value='Submit'
+                          className = 'btn btn-primary' />
                         </div>
+
                       </div>
                     </div>
                     </form>
