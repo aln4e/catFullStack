@@ -3,6 +3,56 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state={
+      cat: {
+        color: "",
+        breed: "",
+        gender: "",
+        habitat: "",
+        personality: "",
+        age: ""
+      }
+    }
+  }
+
+//e is the click
+//target is where you click/type
+//attribute refers to the name of that input which should match the state field
+  handleChange(e){
+    const target = e.target
+    const attribute = target.name
+    this.state.cat[attribute] = target.value
+    this.setState({cat:this.state.cat})
+  }
+
+  handleSubmit(e, attributes){
+
+
+    const params = {
+      method: "POST",
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(this.state)
+    }
+    console.log("current state: ", params)
+    e.preventDefault()
+    debugger
+    fetch('http://localhost:4000/create_cat', params).then((response)=>{
+      if(response.ok){
+        response.json().then((body)=>{
+          this.setState({cat: body.cat})
+
+          console.log(body.cat)
+          console.log(this.state)
+
+        })
+      }else{
+        console.log("error!")
+      }
+    })
+  }
+
   render() {
     return (
       <div className="App">
@@ -16,7 +66,7 @@ class App extends Component {
               <div className='panel'>
                 <div className='panel-body'>
                   <h3>Add a Cat</h3>
-                    <form>
+                    <form onSubmit={this.handleSubmit.bind(this)}>
                     <div className='row'>
                       <div className='col-xs-12'>
 
@@ -26,7 +76,8 @@ class App extends Component {
                           <input
                           type='text'
                           name='color'
-                          value={this.state.}
+                          value={this.state.cat.color}
+                          onChange={this.handleChange.bind(this)}
                           />
                         </div>
 
@@ -36,13 +87,16 @@ class App extends Component {
                           <input
                           type='text'
                           name='breed'
+                          value={this.state.cat.breed}
+                          onChange={this.handleChange.bind(this)}
                           />
                         </div>
 
                         <div>
                           <label>Gender</label>
                           <br />
-                          <select>
+                          <select name='gender' value={this.state.cat.gender} onChange={this.handleChange.bind(this)}>
+                            <option></option>
                             <option>Male</option>
                             <option>Female</option>
                           </select>
@@ -51,7 +105,8 @@ class App extends Component {
                         <div>
                           <label>Habitat</label>
                           <br />
-                          <select>
+                          <select name='habitat' value={this.state.cat.habitat} onChange={this.handleChange.bind(this)}>
+                            <option></option>
                             <option>Inside</option>
                             <option>Outside</option>
                             <option>Wildcat</option>
@@ -64,6 +119,8 @@ class App extends Component {
                           <input
                           type='text'
                           name='personality'
+                          value={this.state.cat.personality}
+                          onChange={this.handleChange.bind(this)}
                           />
                         </div>
 
@@ -73,6 +130,8 @@ class App extends Component {
                           <input
                           type='number'
                           name='age'
+                          value={this.state.cat.age}
+                          onChange={this.handleChange.bind(this)}
                           />
                         </div>
 
