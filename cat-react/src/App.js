@@ -28,24 +28,22 @@ class App extends Component {
   }
 
   handleSubmit(e, attributes){
-
-
+    //the submit button collects all of the data from the inputs and POSTS it to the server via JSON so it must be STRINGIFY-ed
     const params = {
       method: "POST",
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(this.state)
     }
-    console.log("current state: ", params)
+
     e.preventDefault()
-    debugger
+
     fetch('http://localhost:4000/create_cat', params).then((response)=>{
+      //First, check that the response status is 200 (successful) before parsing the response as JSON.
       if(response.ok){
+        //The response of a fetch() request is a Stream object, which means that when we call the json() method, a Promise is returned since the reading of the stream will happen asynchronously.
         response.json().then((body)=>{
+          //set the state with the parsed JSON
           this.setState({cat: body.cat})
-
-          console.log(body.cat)
-          console.log(this.state)
-
         })
       }else{
         console.log("error!")
