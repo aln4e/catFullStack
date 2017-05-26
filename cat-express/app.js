@@ -1,5 +1,4 @@
 var express = require('express');
-
 var bodyParser = require('body-parser')
 var app = express();
 var Cat = require('./models').Cat
@@ -15,7 +14,6 @@ app.use(bodyParser.json())
 
 app.post('/create_cat', function (request, response) {
   let catParams = request.body.cat
-  console.log(catParams)
   //catParams are the inputs from the user when they submit
   Cat.create(catParams).then(function(cat){
     response.status(200)
@@ -26,8 +24,12 @@ app.post('/create_cat', function (request, response) {
   })
  });
 
-app.get('/', function (request, response) {
- response.send('Hello World!');
+app.get('/cat_index', function (request, response) {
+  Cat.findAll().then(function(cats){
+    response.status(200)
+    response.json({status: 'success', cats:cats})
+    console.log(cats)
+  })
 });
 
 app.listen(4000, function () {

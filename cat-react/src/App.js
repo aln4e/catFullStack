@@ -4,7 +4,8 @@ import {Link} from 'react'
 import CatAdd from './Components/CatAdd'
 import logo from './logo.svg';
 import './App.css';
-// import CatIndex from './Components/CatIndex'
+import CatIndex from './Components/CatIndex'
+import Kitties from './Components/Kitties'
 
 
 class App extends Component {
@@ -17,7 +18,8 @@ class App extends Component {
         </div>
         <Router>
           <div>
-            <Route path="/catadd" component={CatAdd}  />
+            <Route exact path="/" component={CatIndex}  />
+            <Route exact path="/catadd" component={CatAdd}  />
           </div>
         </Router>
       </div>

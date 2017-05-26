@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {Link, BrowserRouter as Router, Route} from 'react-router-dom';
+
 
 class CatAdd extends Component {
   constructor(props) {
@@ -35,13 +36,16 @@ class CatAdd extends Component {
     }
     e.preventDefault()
     fetch('http://localhost:4000/create_cat', params).then((response)=>{
+
       //First, check that the response status is 200 (successful) before parsing the response as JSON.
       if(response.ok){
         //The response of a fetch() request is a Stream object, which means that when we call the json() method, a Promise is returned since the reading of the stream will happen asynchronously.
         response.json().then((body)=>{
+
           //set the state with the parsed JSON
           this.setState({cat: body.cat})
-          console.log(body.cat)
+          this.props.history.push('/')
+
         })
       }else{
         console.log("error!")
@@ -57,6 +61,11 @@ class CatAdd extends Component {
             <div className='panel'>
               <div className='panel-body'>
                 <h3>Add a Cat</h3>
+                <div className='catHome'>
+                  <div className="catLink">
+                  <Link to={`/`}>List Cats</Link>
+                </div>
+                </div>
                 <form onSubmit={this.handleSubmit.bind(this)}>
                   <div className='row'>
                     <div className='col-xs-12'>
@@ -128,10 +137,12 @@ class CatAdd extends Component {
 
                       <div>
                         <br />
+
                         <input
                           type='submit'
                           value='Submit'
                           className = 'btn btn-primary' />
+
                         </div>
                       </div>
                     </div>
